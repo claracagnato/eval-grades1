@@ -24,5 +24,16 @@ Give the number of grades in the data set directly in the text of your quarto fi
 data %>% distinct(grade)
 nrow(data)
 ```
-In total, we have 64995 grades but only 214 dinstincts
+In total, we have 64995 grades but only 214 dinstincts.
+
+## Question 3
+The dplyr function distinct() can be used to keep only distinct (!) values in a data frame, according to the specified variables. For instance if the data frame df has a variable foo, then gives a new data frame with only the column foo and such that each value of foo appears only once. This applies to multiple variables in a similar way.
+Use distinct() compute the number of students on the data set and report the value directly in the text as in the previous question.
+
+```{r}
+data %>% distinct(id) %>% nrow()
+```
+The number of unique student is 959.
+
+
 
