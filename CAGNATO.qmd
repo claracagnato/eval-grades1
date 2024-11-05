@@ -78,16 +78,7 @@ ggplot(average_grades, aes(x = group, y = avg_grade)) +
 ## Question 7
 Compare graphically the distribution of the grades of the 2 modules.
 ```{r}
-grade_distribution <- students %>%
-  group_by(course, grade) %>%
-  summarise(num_students = n(), .groups = 'drop')
 
-ggplot(grade_distribution, aes(x = grade, y = num_students, fill = course)) +
-  geom_bar(stat = "identity", position = "dodge") +  
-  labs(title = "Distribution of Grades",
-       x = "Grades",
-       y = "Number of Students") +
-  theme_minimal()
 ```
 ## Question 8
 Compute the number of grades per student and include in your quarto rendering an extract of the resulting data frame. Make sure to keep in the data frame the id of the students but also their group. Include in the text a markdown table with the minimum, maximum, average and median number of grades per student.
@@ -154,4 +145,33 @@ ggplot(grades_architecture, aes(x = group, y = num_grades, color = group)) +
   theme_minimal() +
   theme(legend.position = "none")
 ```
+## Question 12
+Create a data frame that gives for each student their id, their group and the average of grades they obtained in each course. Using an adapted pivoting method, create a new data frame with one row per student and 12 columns: one for the id, one for the group and one per course. Include in the quarto rendering a small extract of the data frame with the id and group columns and with two of the course columns. You should obtain something like this:
+```{r}
+average_grades <- data %>%
+  group_by(id, group, course) %>%                 
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = 'drop')  
+
+average_grades_wide <- average_grades %>%
+  pivot_wider(names_from = course, values_from = avg_grade, values_fill = NA)  
+
+print(average_grades_wide)
+```
+
+```{r}
+average_grades <- data %>%
+  group_by(id, group, course) %>%  
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = 'drop')  
+
+average_grades_wide <- average_grades %>%
+  pivot_wider(names_from = course, values_from = avg_grade, values_fill = NA)  
+
+sample_extract <- average_grades_wide %>%
+  select(id, group, `Agriculture and Horticulture`, `Architecture and Sculpture`) %>% 
+  slice_head(n = 10)  
+
+print(sample_extract)
+```
+
+
 
