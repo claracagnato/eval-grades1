@@ -18,4 +18,11 @@ theme_set(theme_bw())
 ```{r}
 data <- vroom(here("grades.csv"))
 ```
+## Question 2
+Give the number of grades in the data set directly in the text of your quarto file, in a sentence of the form “The data set contains xxx grades.” where xxx is replaced by the number of grades. This must be computed from the data set.
+```{r}
+data %>% distinct(grade)
+nrow(data)
+```
+In total, we have 64995 grades but only 214 dinstincts
 
