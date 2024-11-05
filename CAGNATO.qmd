@@ -128,6 +128,30 @@ kable(sample_architecture_grades)
 ```
 
 
+## Question 10
+Compute from the previous data frame the distribution of the number of grades, that is for each number of grades (e.g. 10) the number of students who have exactly this number of grades in Architecture and Sculpture. Represent graphically the results.
+```{r}
+grades_distribution <- grades_architecture %>%
+  group_by(num_grades) %>%         
+  summarise(num_students = n(), .groups = 'drop')  
 
 
+ggplot(grades_distribution, aes(x = num_grades, y = num_students)) +
+  geom_bar(stat = "identity") +  
+  labs(title = "Distribution of Number of Grades in Architecture and Sculpture",
+       x = "Number of Grades",
+       y = "Number of Students") +
+  theme_minimal()
+```
+
+## Question 11
+```{r}
+ggplot(grades_architecture, aes(x = group, y = num_grades, color = group)) +
+  geom_point(size = 3, alpha = 0.7) +  
+  labs(title = "Number of Grades in Architecture and Sculpture by Group",
+       x = "Group",
+       y = "Number of Grades") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
 
