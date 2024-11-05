@@ -230,5 +230,25 @@ correlation_results <- average_grades %>%
 correlation_results
 ```
 
+## Question 15
+Display the average grades in History and Civilization of Southeast Asia as a function the average grades in Architecture and Sculpture for the students of the group in which those grades are the most correlated (positively or negatively).
 
+## Question 16
+Let us assume that the final grade of a student is the average of the averages of their grades for each course. Create a data frame with three columns, id, group and final grade based on this definition for the last column. Sort the data frame in decrease order of final grade and include in the quarto rendering its first five rows.
+```{r}
+course_averages <- data %>%
+  group_by(id, group, course) %>%
+  summarise(avg_grade = mean(grade, na.rm = TRUE), .groups = 'drop')
+
+final_grades <- course_averages %>%
+  group_by(id, group) %>%
+  summarise(final_grade = mean(avg_grade, na.rm = TRUE), .groups = 'drop')
+
+newdf <- final_grades %>%
+  select(ID = id, group, final_grade)
+print(newdf)
+
+newdf %>%
+  arrange(desc(final_grade))
+```
 
