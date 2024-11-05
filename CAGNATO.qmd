@@ -115,6 +115,18 @@ kable(sample_grades)
 
 ## Question 9
 Create a data frame that gives for each student their id, their group and the number of grades they obtained in Architecture and Sculpture and include in the quarto rendering a small extract of the result.
+```{r}
+grades_architecture <- data %>%
+  filter(course == "Architecture and Sculpture") %>%  # Filtrer pour le cours
+  distinct(id, group, grade) %>%                       # Garder uniquement les combinaisons uniques d'ID, group et grade
+  group_by(id, group) %>%                               # Regrouper par ID et groupe
+  summarise(num_grades = n(), .groups = 'drop') 
+grades_architecture
+sample_architecture_grades <- grades_architecture %>% 
+  slice_head(n = 10)
+kable(sample_architecture_grades)
+```
+
 
 
 
