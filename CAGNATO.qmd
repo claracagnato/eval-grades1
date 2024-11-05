@@ -75,6 +75,46 @@ ggplot(average_grades, aes(x = group, y = avg_grade)) +
        y = "Average Grade") +
   theme_minimal()
 ```
+## Question 7
+Compare graphically the distribution of the grades of the 2 modules.
+```{r}
+grade_distribution <- students %>%
+  group_by(course, grade) %>%
+  summarise(num_students = n(), .groups = 'drop')
+
+ggplot(grade_distribution, aes(x = grade, y = num_students, fill = course)) +
+  geom_bar(stat = "identity", position = "dodge") +  
+  labs(title = "Distribution of Grades",
+       x = "Grades",
+       y = "Number of Students") +
+  theme_minimal()
+```
+## Question 8
+Compute the number of grades per student and include in your quarto rendering an extract of the resulting data frame. Make sure to keep in the data frame the id of the students but also their group. Include in the text a markdown table with the minimum, maximum, average and median number of grades per student.
+```{r}
+grades_per_id <- students %>%
+  group_by(id) %>%              
+  summarise(num_grades = n(), .groups = 'drop')
+grades_per_id
+```
+```{r}
+sample <- grades_per_id %>% 
+  slice_head(n = 10)
+sample
+```
+
+```{r}
+grades_per_id_group <- students %>%
+  group_by(id, group) %>%              
+  summarise(num_grades = n(), .groups = 'drop')  
+sample_grades <- grades_per_id_group %>% 
+  slice_head(n = 10)
+library(knitr)
+kable(sample_grades)
+```
+
+## Question 9
+Create a data frame that gives for each student their id, their group and the number of grades they obtained in Architecture and Sculpture and include in the quarto rendering a small extract of the result.
 
 
 
