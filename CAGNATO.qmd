@@ -44,5 +44,19 @@ students <- data %>%
 head(students)
 ```
 
+## Question 5
+Use a graphical representation to display the number of students per group.
+```{r}
+students_per_group <- students %>%
+  group_by(group) %>%
+  summarise(num_students = n())
+
+
+ggplot(students_per_group, aes(x = group, y = num_students)) +
+  geom_bar(stat = "identity") +
+  labs(title = "nb of student per group", x = "Group", y = "Nb of students") +
+  theme_minimal()
+```
+
 
 
