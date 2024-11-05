@@ -210,5 +210,25 @@ ggplot(average_grades, aes(x = avg_language, y = avg_agriculture)) +
   )
 ```
 
+## Question 14
+The cor() function computes the correlation coeﬀicient between two vectors. It can be used as a summary function in dplyr. Using it, compute the correlation between the average grades in History and Civilization of Southeast Asia and the average grades in Architecture and Sculpture group by group.
+
+```{r}
+average_grades <- data %>%
+  group_by(id, group) %>%
+  summarise(
+    avg_history = mean(grade[course == "History and Civilization of Southeast Asia"], na.rm = TRUE),
+    avg_architecture = mean(grade[course == "Architecture and Sculpture"], na.rm = TRUE),
+    .groups = 'drop'  
+  )
+average_grades
+```
+```{r}
+correlation_results <- average_grades %>%
+  group_by(group) %>%
+  summarise(correlation = cor(avg_history, avg_architecture, use = "complete.obs"))
+correlation_results
+```
+
 
 
