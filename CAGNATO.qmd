@@ -14,7 +14,8 @@ library(tidyr)
 theme_set(theme_bw())
 ```
 
-## Question 1 data import
+## Question 1 
+data import
 ```{r}
 data <- vroom(here("grades.csv"))
 ```
@@ -264,5 +265,15 @@ ggplot(newdf, aes(x = factor(group), y = final_grade)) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 ## Question 18
+Create a data frame that gives for each student their id, their group, their final grade (as defined before) and a pass variable equal to TRUE if the student pass the year (and FALSE if they do not).
 
 
+
+```{r}
+
+```
+
+## Question 19
+Compute and display the number of students who do not pass and yet have a final grade larger or equal to 10.
+## Question 20
+Compute the pass rate per group and represent it graphically.
